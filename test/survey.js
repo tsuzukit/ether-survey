@@ -46,6 +46,7 @@ contract('Survey', function(accounts) {
     survey = Survey.at(deployed[deployed.length - 1]);
   });
 
+  // Make sure survey information can be retreived properly
   it("should have correct survey info", async () => {
     let summary = await survey.getSummary.call();
 
@@ -57,6 +58,7 @@ contract('Survey', function(accounts) {
     assert.equal(accounts[0], summary[5]);
   });
 
+  // Make sure survey cannot be answered when there is no reward
   it("can not answer survey because there is no token left", async () => {
     let error;
     try {
@@ -71,6 +73,7 @@ contract('Survey', function(accounts) {
     }
   });
 
+  // Make sure survey reward can be charged with reward ERC20
   it("should charge and reflect", async () => {
     // charge token to surevy
     await token.transfer(survey.address, 100, {from: accounts[0]});
@@ -82,6 +85,7 @@ contract('Survey', function(accounts) {
     assert.equal(100, rewardLeft);
   });
 
+  // Make sure survey owner can make survey to emergency mode
   it("allows only owner to put survey in emergency", async () => {
     // stop contract
     let error;
@@ -111,6 +115,7 @@ contract('Survey', function(accounts) {
 
   });
 
+  // Make sure no one can answer survey when in emergency mode
   it("canot answer survey in emergency", async () => {
     // charge token to surevy
     await token.transfer(survey.address, 100, {from: accounts[0]});
@@ -132,6 +137,7 @@ contract('Survey', function(accounts) {
     }
   });
 
+  // Make sure survey can be answred when there is reward left and it is before closing time
   it("can answer survey after charge", async () => {
     // charge token to surevy
     await token.transfer(survey.address, 100, {from: accounts[0]});
@@ -146,6 +152,7 @@ contract('Survey', function(accounts) {
     assert.equal(answer, retrievedAnswer);
   });
 
+  // Make sure same ether account can only answer 1 time to same survey
   it("cannot answer survey twice", async () => {
     // charge token to surevy
     await token.transfer(survey.address, 100, {from: accounts[0]});
@@ -169,6 +176,7 @@ contract('Survey', function(accounts) {
     assert.equal(answer, retrievedAnswer);
   });
 
+  // Make sure survey can only be answered through survey factory contract
   it("cannot answer survey directly", async () => {
     try {
       await survey.answer(newAnswer, {from: accounts[2]});
@@ -182,6 +190,7 @@ contract('Survey', function(accounts) {
     assert.equal("", retrievedAnswer);
   });
 
+  // Make sure survey cannot be answered after deadline
   it("cannot answer after deadline", async () => {
     // charge token to surevy
     await token.transfer(survey.address, 100, {from: accounts[0]});
@@ -201,6 +210,7 @@ contract('Survey', function(accounts) {
     }
   });
 
+  // Make sure survey reward cannot be withdrawn before deadline
   it("cannot withdraw before deadline", async () => {
     // charge token to surevy
     await token.transfer(survey.address, 100, {from: accounts[0]});
@@ -220,6 +230,7 @@ contract('Survey', function(accounts) {
     }
   });
 
+  // Make sure survey reward can be withdrawn after deadline
   it("can withdraw after deadline", async () => {
     // charge token to surevy
     await token.transfer(survey.address, 100, {from: accounts[0]});
@@ -247,6 +258,7 @@ contract('Survey', function(accounts) {
     assert.equal(1, respondentAmount2);
   });
 
+  // Make sure survey reward cannot be withdrawn when at emergency
   it("cannot withdraw after deadline but in emergency", async () => {
     // charge token to surevy
     await token.transfer(survey.address, 100, {from: accounts[0]});
