@@ -18,6 +18,9 @@ const styles = {
     marginLeft: 'auto',
     height: 0,
   },
+  accounts: {
+    marginLeft: 'auto'
+  }
 };
 
 class SimpleAppBar extends Component {
@@ -36,9 +39,15 @@ class SimpleAppBar extends Component {
               <strong>Ether Surevy</strong> { title }
             </Typography>
 
-            <Tooltip title="Metamask Connected!">
-              <Avatar src="/img/metamsk.jpg" className={ this.props.web3 && this.props.accounts.length >= 1 ? classes.avatar : classes.avatar_hidden}></Avatar>
-            </Tooltip>
+            <div className={classes.accounts}>
+              <Tooltip title={ this.props.web3 && this.props.accounts.length >= 1 ? "connected as: " + this.props.accounts[0] : "" }>
+                <Avatar src="/img/metamsk.jpg" className={ this.props.web3 && this.props.accounts.length >= 1 ? classes.avatar : classes.avatar_hidden}></Avatar>
+              </Tooltip>
+
+              <Typography variant="caption">
+                { this.props.web3 && this.props.accounts.length >= 1 ? "connected as: " + this.props.accounts[0] : "" }
+              </Typography>
+            </div>
 
           </Toolbar>
         </AppBar>
