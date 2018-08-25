@@ -47,16 +47,19 @@ Below pictures explains how system works for owner and respondent.
 ## Setup your environment.
 
 ```
+// clone repository
+git clone git@github.com:tsuzukit/ether-survey.git
+
 // move to repository root folder
 $ cd ether-survey
 
-// install
+// install tools / libralies
 $ npm install -g truffle
 $ npm install -g ganache-cli
 $ npm install
 ```
 
-Make sure you have metamask installed for your borwser.
+Make sure to install [metamask](https://metamask.io/) to chrome or install [brave browser](https://brave.com/) and enable metamask.
 
 The operation is confirmed with below tools / versions.
 
@@ -69,31 +72,7 @@ npm: 6.2.0
 
 ## Bootup your local server
 
-### 0. Install metamask (if not yet)
-
-Please install [metamask](https://metamask.io/) or install [brave browser](https://brave.com/) and enable metamask.
-
-### 1. Install npm
-
-Please install npm and dependency for this project
-
-```
-$ npm install
-```
-
-### 2. ganache-cli
-
-```
-$ npm install -g ganache-cli
-```
-
-### 3. truffle
-
-```
-$ npm install -g truffle
-```
-
-### 4. Start local private ethereum with below command
+### 1. Start local private ethereum with below command
 
 Move to root directory of this repo and run below command.
 
@@ -104,13 +83,13 @@ $ sh shell/start_ganache.sh
 This will create ethereum network running at `localhost:8545`
 Take note of Mnemonic to be logged in with Metamask later.
 
-### 5. Compile and dploy contracts
+### 2. Compile and dploy contracts
 
 ```
 $ truffle migrate
 ```
 
-### 6. Start surver
+### 3. Start surver
 
 ```
 $ npm run start
@@ -187,3 +166,12 @@ Press "detail" button of survey at index page and press "Show answers" button at
 You will see all answers here. (Yes, it should be prettier...)
 
 ![respondent](/imgs/img8.png)
+
+# Deploy to test net
+
+Below are deployed contract address at Rinkeby
+
+```
+Survey Factory Contract: 0xf7b0ac10200875de011c846f197ff56ff65c52df
+Survey Token Contract: 0x82A48Fcb9214A90336b801458729482C6B9e29f7
+```
